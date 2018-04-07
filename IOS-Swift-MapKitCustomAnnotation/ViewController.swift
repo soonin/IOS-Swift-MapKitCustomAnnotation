@@ -7,19 +7,38 @@
 //
 
 import UIKit
+import MapKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, MKMapViewDelegate {
 
+    @IBOutlet weak var mapView: MKMapView!
+    var pin:AnnotationPin!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        mapView.delegate = self
+        //mapView.mapType = .satellite
+        
+        let coordinate = CLLocationCoordinate2D(latitude: 49.2768, longitude: 123.1120)
+        let regin = MKCoordinateRegionMakeWithDistance(coordinate, 1000, 1000)
+        
+        mapView.setRegion(regin, animated: true)
+        
+        pin = AnnotationPin(title: "BC Place", subtitle: "BC Place is a multi-purpose stadium located at the north side of False Creek, in Vancouver, BC, Canadac", coordinate: coordinate)
+        
+        mapView.addAnnotation(pin)
+    
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let annotationView = MKAnnotationView(annotation: pin, reuseIdentifier: "BCPlacePin")
+        annotationView.image = UIImage(named: "stadium")
+        let transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        annotationView.transform = transform
+        
+        return annotationView
     }
-
-
+    
 }
 
