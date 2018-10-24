@@ -18,9 +18,9 @@ class ViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
 
         mapView.delegate = self
-        //mapView.mapType = .satellite
+        mapView.mapType = .hybrid
         
-        let coordinate = CLLocationCoordinate2D(latitude: 49.2768, longitude: 123.1120)
+        let coordinate = CLLocationCoordinate2D(latitude: 49.2768, longitude: -123.1120)
         let regin = MKCoordinateRegionMakeWithDistance(coordinate, 1000, 1000)
         
         mapView.setRegion(regin, animated: true)
@@ -33,8 +33,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let annotationView = MKAnnotationView(annotation: pin, reuseIdentifier: "BCPlacePin")
-        annotationView.image = UIImage(named: "stadium")
-        let transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        annotationView.image = UIImage(named: "flag01")
+        let transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
         annotationView.transform = transform
         
         return annotationView
